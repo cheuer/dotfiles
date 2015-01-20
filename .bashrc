@@ -183,6 +183,7 @@ alias reload='source ~/.bashrc'
 alias cls='printf "\033c"'
 alias psh='ps -H'
 alias ns='nslookup -nosearch -debug'
+alias ssh='ssh_with_add'
 
 # other settings
 export EDITOR=/usr/bin/vim
@@ -270,6 +271,30 @@ colors() {
 EOF
 }
 
+ssh_with_add() {
+	# SSH agent
+	# If no SSH agent is already running, start one now. Re-use sockets so we never
+	# have to start more than one session.
+	export SSH_AUTH_SOCK=~/.ssh-socket
+
+	ssh-add -l >/dev/null 2>&1
+	result=$?
+	if [ $result = 2 ]; then
+		# No ssh-agent running
+		rm -rf $SSH_AUTH_SOCK
+		# >| allows output redirection to over-write files if no clobber is set
+		ssh-agent -a $SSH_AUTH_SOCK >| /tmp/.ssh-script
+		source /tmp/.ssh-script > /dev/null
+		echo $SSH_AGENT_PID >| ~/.ssh-agent-pid
+		rm /tmp/.ssh-script
+		ssh-add
+	elif [ $result = 1 ]; then
+		ssh-add
+	fi
+	
+	\ssh "$@"
+}
+
 # cygwin-only settings
 if [ -d /cygdrive ]; then
 
@@ -290,23 +315,4 @@ if [ -d /cygdrive ]; then
 		run "C:\Program Files (x86)\Notepad++\notepad++.exe" -nosession $opts
 	}
 
-	# SSH agent
-	# If no SSH agent is already running, start one now. Re-use sockets so we never
-	# have to start more than one session.
-	export SSH_AUTH_SOCK=~/.ssh-socket
-
-	ssh-add -l >/dev/null 2>&1
-	result=$?
-	if [ $result = 2 ]; then
-		# No ssh-agent running
-		rm -rf $SSH_AUTH_SOCK
-		# >| allows output redirection to over-write files if no clobber is set
-		ssh-agent -a $SSH_AUTH_SOCK >| /tmp/.ssh-script
-		source /tmp/.ssh-script > /dev/null
-		echo $SSH_AGENT_PID >| ~/.ssh-agent-pid
-		rm /tmp/.ssh-script
-		ssh-add
-	elif [ $result = 1 ]; then
-		ssh-add
-	fi
 fi
