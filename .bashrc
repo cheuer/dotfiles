@@ -184,9 +184,11 @@ alias cls='printf "\033c"'
 alias psh='ps -H'
 alias ns='nslookup -nosearch -debug'
 alias ssh='ssh_with_add'
+alias mongod='mongod --dbpath "C:\Program Files\MongoDB 2.6 Standard\data\db"'
 
 # other settings
 export EDITOR=/usr/bin/vim
+export SSH_AUTH_SOCK=~/.ssh-socket
 
 # functions
 count_folders(){
@@ -275,7 +277,6 @@ ssh_with_add() {
 	# SSH agent
 	# If no SSH agent is already running, start one now. Re-use sockets so we never
 	# have to start more than one session.
-	export SSH_AUTH_SOCK=~/.ssh-socket
 
 	ssh-add -l >/dev/null 2>&1
 	result=$?
