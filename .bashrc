@@ -162,7 +162,7 @@ alias df='df -h'
 alias du='du -h'
 #
 # Some shortcuts for different directory listings
-alias ls='ls -hF --color=tty --ignore="NTUSER.*" --ignore="ntuser.*"'  # classify files in colour
+alias ls='ls -hFv --color=tty --ignore="NTUSER.*" --ignore="ntuser.*"'  # classify files in colour
 alias ll='ls -l'                              # long list
 alias la='ls -A'                              # all but . and ..
 alias lal='ls -Al'
@@ -271,6 +271,18 @@ colors() {
 [0;36;47m   \e[36;47m   [0m [0;1;36;47m  \e[1;36;47m  [0m [0;36;4;47m  \e[36;4;47m  [0m [0;1;36;4;47m \e[1;36;4;47m [0m [0;36;5;47m  \e[36;5;47m  [0m [0;1;36;5;47m \e[1;36;5;47m [0m 
 [0;37;47m   \e[37;47m   [0m [0;1;37;47m  \e[1;37;47m  [0m [0;37;4;47m  \e[37;4;47m  [0m [0;1;37;4;47m \e[1;37;4;47m [0m [0;37;5;47m  \e[37;5;47m  [0m [0;1;37;5;47m \e[1;37;5;47m [0m 
 EOF
+}
+
+color_explain() {
+	eval "$(dircolors -b)"
+	eval $(echo "no:global default;fi:normal file;di:directory;ln:symbolic link;pi:named pipe;so:socket;do:door;bd:block device;cd:character device;or:orphan symlink;mi:missing file;su:set uid;sg:set gid;tw:sticky other writable;ow:other writable;st:sticky;ex:executable;"|sed -e 's/:/="/g; s/\;/"\n/g')
+	{
+	  IFS=:
+	  for i in $LS_COLORS
+	  do
+		echo -e "\e[${i#*=}m$( x=${i%=*}; [ "${!x}" ] && echo "${!x}" || echo "$x" )\e[m"
+	  done
+	}
 }
 
 ssh_with_add() {
