@@ -47,7 +47,7 @@ function __prompt_command() {
 	
 	# handy unicode symbols
 	local FancyX='\342\234\227'
-    local Checkmark='\342\234\223'
+	local Checkmark='\342\234\223'
 	
 	# check for SSH shell
 	if [[ $(who am i) =~ \([-a-zA-Z0-9\.]+\)$ ]]; then
