@@ -16,3 +16,5 @@
 	interactive = auto
 	ui = auto
 	pager = true
+[push]
+	default = simple
