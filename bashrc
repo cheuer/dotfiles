@@ -286,6 +286,11 @@ color_explain() {
 }
 
 ssh_with_add() {
+	start_ssh_agent
+	\ssh "$@"
+}
+
+start_ssh_agent() {
 	# SSH agent
 	# If no SSH agent is already running, start one now. Re-use sockets so we never
 	# have to start more than one session.
@@ -304,8 +309,6 @@ ssh_with_add() {
 	elif [ $result = 1 ]; then
 		ssh-add
 	fi
-	
-	\ssh "$@"
 }
 
 # cygwin-only settings
