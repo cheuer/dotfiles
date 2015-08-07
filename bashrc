@@ -178,6 +178,8 @@ alias lal='ls -Al'
 
 # custom aliases
 alias grep='grep -i --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
 alias tunnel='ssh -fNL'
 alias reload='source ~/.bashrc'
 alias cls='printf "\033c"'
@@ -185,6 +187,8 @@ alias psh='ps -H'
 alias ns='nslookup -nosearch -debug'
 alias ssh='ssh_with_add'
 alias mongod='mongod --dbpath "C:\Program Files\MongoDB 2.6 Standard\data\db"'
+
+hash colordiff 2>/dev/null && alias diff=colordiff # use colordiff instead of diff if it exists
 
 # other settings
 export EDITOR=/usr/bin/vim
