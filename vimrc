@@ -62,3 +62,7 @@ set modeline		" allow files to use modelines
 
 " use jj to escape when in insert mode
 inoremap jj <Esc>
+
+" use F2 for paste mode
+set pastetoggle=<F2>
+
