@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ln -sv ~/.dotfiles/bash_profile ~/.bash_profile 
-ln -sv ~/.dotfiles/bashrc ~/.bashrc
-ln -sv ~/.dotfiles/gitconfig ~/.gitconfig
-ln -sv ~/.dotfiles/vimrc ~/.vimrc
+ln -svf ~/.dotfiles/bash_profile ~/.bash_profile 
+ln -svf ~/.dotfiles/bashrc ~/.bashrc
+ln -svf ~/.dotfiles/gitconfig ~/.gitconfig
+ln -svf ~/.dotfiles/vimrc ~/.vimrc

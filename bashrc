@@ -1,20 +1,4 @@
-
-# base-files version 4.2-3
-# ~/.bashrc: executed by bash(1) for interactive shells.
-
-# The latest version as installed by the Cygwin Setup program can
-# always be found at /etc/defaults/etc/skel/.bashrc
-
-# Modifying /etc/skel/.bashrc directly will prevent
-# setup from updating it.
-
-# The copy in your home directory (~/.bashrc) is yours, please
-# feel free to customise it to create a shell
-# environment to your liking.  If you feel a change
-# would be benificial to all, please feel free to send
-# a patch to the cygwin mailing list.
-
-# User dependent .bashrc file
+# cheuer's .bashrc file
 
 # If not running interactively, don't do anything
 [[ "$-" != *i* ]] && return
@@ -120,17 +104,6 @@ bind "set completion-ignore-case on"
 # show suggestions immediately
 bind "set show-all-if-ambiguous on"
 #
-# These completion tuning parameters change the default behavior of bash_completion:
-#
-# Define to access remotely checked-out files over passwordless ssh for CVS
-# COMP_CVS_REMOTE=1
-#
-# Define to avoid stripping description in --option=description of './configure --help'
-# COMP_CONFIGURE_HINTS=1
-#
-# Define to avoid flattening internal contents of tar files
-# COMP_TAR_INTERNAL_PATHS=1
-#
 # Uncomment to turn on programmable completion enhancements.
 # Any completions you add in ~/.bash_completion are sourced last.
 # [[ -f /etc/bash_completion ]] && . /etc/bash_completion
@@ -145,7 +118,6 @@ export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 # The '&' is a special pattern which suppresses duplicate entries.
 # export HISTIGNORE=$'[ \t]*:&:[fb]g:exit'
 export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:history' # Ignore the ls command as well
-#
 
 # Aliases
 #
@@ -156,25 +128,16 @@ export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:history' # Ignore the ls command as w
 #
 # To override the alias instruction use a \ before, ie
 # \rm will call the real rm not the alias.
-#
+
 # Default to human readable figures
 alias df='df -h'
 alias du='du -h'
-#
+
 # Some shortcuts for different directory listings
 alias ls='ls -hF --color=tty --ignore="NTUSER.*" --ignore="ntuser.*"'  # classify files in colour
 alias ll='ls -l'                              # long list
 alias la='ls -A'                              # all but . and ..
 alias lal='ls -Al'
-
-# Umask
-#
-# /etc/profile sets 022, removing write perms to group + others.
-# Set a more restrictive umask: i.e. no exec perms for others:
-# umask 027
-# Paranoid: neither group nor others have any perms:
-# umask 077
-
 
 # custom aliases
 alias grep='grep -i --color=auto'
@@ -188,11 +151,13 @@ alias ns='nslookup -nosearch -debug'
 alias ssh='ssh_with_add'
 alias mongod='mongod --dbpath "C:\Program Files\MongoDB 2.6 Standard\data\db"'
 
+# conditional aliases
 hash colordiff 2>/dev/null && alias diff=colordiff # use colordiff instead of diff if it exists
 
 # other settings
 export EDITOR=/usr/bin/vim
 export SSH_AUTH_SOCK=~/.ssh-socket
+export TMOUT=0
 
 # functions
 count_folders(){
