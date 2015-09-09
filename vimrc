@@ -59,10 +59,17 @@ set number			" show line numbers
 set incsearch		" incremental search
 set hlsearch		" highlight search result
 set modeline		" allow files to use modelines
+set nostartofline	" don't jump to the beginning of the line when scrolling
 
 " use jj to escape when in insert mode
 inoremap jj <Esc>
 
 " use F2 for paste mode
 set pastetoggle=<F2>
+
+" fix pgup/pgdn
+map <silent> <PageUp> <C-U>
+map <silent> <PageDown> <C-D>
+imap <silent> <PageUp> <C-O><C-U>
+imap <silent> <PageDown> <C-O><C-D>
 
