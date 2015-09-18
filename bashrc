@@ -107,6 +107,9 @@ bind "set completion-ignore-case on"
 # show suggestions immediately
 bind "set show-all-if-ambiguous on"
 #
+# show all suggestions
+bind "set completion-query-items 0"
+#
 # Uncomment to turn on programmable completion enhancements.
 # Any completions you add in ~/.bash_completion are sourced last.
 # [[ -f /etc/bash_completion ]] && . /etc/bash_completion
