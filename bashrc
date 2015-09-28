@@ -156,6 +156,7 @@ alias psh='ps -H'
 alias ns='nslookup -nosearch -debug'
 alias ssh='ssh_with_add'
 alias mongod='mongod --dbpath "C:\Program Files\MongoDB 2.6 Standard\data\db"'
+alias screen='screen -U' # always start screen in UTF-8 mode
 
 # conditional aliases
 hash colordiff 2>/dev/null && alias diff=colordiff # use colordiff instead of diff if it exists
