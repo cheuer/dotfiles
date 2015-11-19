@@ -175,6 +175,7 @@ hash colordiff 2>/dev/null && alias diff=colordiff # use colordiff instead of di
 # other settings
 export EDITOR=/usr/bin/vim
 export TMOUT=0
+[ -r ~/.ssh-agent ] && source ~/.ssh-agent >/dev/null
 
 # functions
 function count_folders() {
