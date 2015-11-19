@@ -154,7 +154,8 @@ alias reload='source ~/.bashrc'
 alias cls='printf "\033c"'
 alias psh='ps -H'
 alias ns='nslookup -nosearch -debug'
-alias ssh='ssh_with_add'
+alias scp='__ssh_agent && scp'
+alias ssh='__ssh_agent && ssh'
 alias mongod='mongod --dbpath "C:\Program Files\MongoDB 2.6 Standard\data\db"'
 alias screen='screen -U' # always start screen in UTF-8 mode
 
@@ -173,7 +174,6 @@ hash colordiff 2>/dev/null && alias diff=colordiff # use colordiff instead of di
 
 # other settings
 export EDITOR=/usr/bin/vim
-export SSH_AUTH_SOCK=~/.ssh-socket
 export TMOUT=0
 
 # functions
@@ -271,28 +271,24 @@ color_explain() {
 	}
 }
 
-ssh_with_add() {
-	start_ssh_agent
-	\ssh "$@"
-}
-
-start_ssh_agent() {
-	# SSH agent
+__ssh_agent() {
 	# If no SSH agent is already running, start one now. Re-use sockets so we never
 	# have to start more than one session.
 
 	ssh-add -l >/dev/null 2>&1
 	result=$?
 	if [ $result = 2 ]; then
-		# No ssh-agent running
-		rm -rf $SSH_AUTH_SOCK
-		# >| allows output redirection to over-write files if no clobber is set
-		ssh-agent -a $SSH_AUTH_SOCK >| /tmp/.ssh-script
-		source /tmp/.ssh-script > /dev/null
-		echo $SSH_AGENT_PID >| ~/.ssh-agent-pid
-		rm /tmp/.ssh-script
-		ssh-add
-	elif [ $result = 1 ]; then
+		# read ssh-agent config from file and retry
+		[ -r ~/.ssh-agent ] && source ~/.ssh-agent >/dev/null
+		ssh-add -l >/dev/null 2>&1
+		result=$?
+		if [ $result = 2 ]; then
+			ssh-agent > ~/.ssh-agent
+			source ~/.ssh-agent >/dev/null
+			ssh-add
+		fi
+	fi
+	if [ $result = 1 ]; then
 		ssh-add
 	fi
 }
