@@ -4,7 +4,7 @@
 [[ "$-" != *i* ]] && return
 
 # prompt command
-# inspired by https://gitorious.org/demure/dotfiles/source/subbash/prompt
+# inspired by https://notabug.org/demure/dotfiles/
 export PROMPT_COMMAND=__prompt_command
 function __prompt_command() {
 	local EXIT=$? 		# capture previous exit code first
@@ -74,7 +74,7 @@ function __prompt_command() {
 	then
 		GIT_PS1_SHOWDIRTYSTATE=1
 		GIT_PS1_SHOWUNTRACKEDFILES=1 #designated with %
-		GIT_PS1_SHOWUPSTREAM="verbose svn"
+		GIT_PS1_SHOWUPSTREAM="auto"
 		GIT_PS1_SHOWCOLORHINTS=true
 		PS1+="${RCol} \$(__git_ps1 '(%s)')"
 	fi
@@ -157,6 +157,16 @@ alias ns='nslookup -nosearch -debug'
 alias ssh='ssh_with_add'
 alias mongod='mongod --dbpath "C:\Program Files\MongoDB 2.6 Standard\data\db"'
 alias screen='screen -U' # always start screen in UTF-8 mode
+
+# git stuff
+alias ga='git add'
+alias gc='git commit'
+alias gca='git commit -a'
+alias gd='git diff'
+alias gds='git diff --staged'
+alias gf='git fetch'
+alias gh='git hist'
+alias gs='git status'
 
 # conditional aliases
 hash colordiff 2>/dev/null && alias diff=colordiff # use colordiff instead of diff if it exists
