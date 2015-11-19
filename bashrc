@@ -177,7 +177,7 @@ export EDITOR=/usr/bin/vim
 export TMOUT=0
 
 # functions
-count_folders(){
+function count_folders() {
 	shopt -s nullglob
 	for dir in ./*/
 	do
@@ -186,11 +186,11 @@ count_folders(){
 	done
 }
 
-findedit(){
+function findedit() {
 	$EDITOR $(find -name $1)
 }
 
-colors() {
+function colors() {
 	cat <<EOF
 [0;30;40m   \e[30;40m   [0m [0;1;30;40m  \e[1;30;40m  [0m [0;30;4;40m  \e[30;4;40m  [0m [0;1;30;4;40m \e[1;30;4;40m [0m [0;30;5;40m  \e[30;5;40m  [0m [0;1;30;5;40m \e[1;30;5;40m [0m 
 [0;31;40m   \e[31;40m   [0m [0;1;31;40m  \e[1;31;40m  [0m [0;31;4;40m  \e[31;4;40m  [0m [0;1;31;4;40m \e[1;31;4;40m [0m [0;31;5;40m  \e[31;5;40m  [0m [0;1;31;5;40m \e[1;31;5;40m [0m 
@@ -259,7 +259,7 @@ colors() {
 EOF
 }
 
-color_explain() {
+function color_explain() {
 	eval "$(dircolors -b)"
 	eval $(echo "no:global default;fi:normal file;di:directory;ln:symbolic link;pi:named pipe;so:socket;do:door;bd:block device;cd:character device;or:orphan symlink;mi:missing file;su:set uid;sg:set gid;tw:sticky other writable;ow:other writable;st:sticky;ex:executable;"|sed -e 's/:/="/g; s/\;/"\n/g')
 	{
@@ -271,7 +271,7 @@ color_explain() {
 	}
 }
 
-__ssh_agent() {
+function __ssh_agent() {
 	# If no SSH agent is already running, start one now. Re-use sockets so we never
 	# have to start more than one session.
 
@@ -299,7 +299,7 @@ if [ -d /cygdrive ]; then
 	export EDITOR="notepad++.exe -multiInst -nosession -notabbar"
 	
 	# notepad++
-	npp(){
+	function npp() {
 		opts=""
 		for ((arg=1; arg <= $#; arg++))
 		do
