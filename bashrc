@@ -156,13 +156,12 @@ alias psh='ps -H'
 alias ns='nslookup -nosearch -debug'
 alias scp='__ssh_agent && scp'
 alias ssh='__ssh_agent && ssh'
-alias mongod='mongod --dbpath "C:\Program Files\MongoDB 2.6 Standard\data\db"'
 alias screen='screen -U' # always start screen in UTF-8 mode
 
 # git stuff
 alias ga='git add'
 alias gc='git commit'
-alias gca='git commit -am'
+alias gca='git commit -a'
 alias gcm='git commit -m'
 alias gd='git diff'
 alias gds='git diff --staged'
@@ -298,8 +297,10 @@ function __ssh_agent() {
 # cygwin-only settings
 if [ -d /cygdrive ]; then
 
-	export EDITOR="notepad++.exe -multiInst -nosession -notabbar"
-	
+	if [ ! -x $EDITOR ]; then
+		export EDITOR="notepad++.exe -multiInst -nosession -notabbar"
+	fi
+
 	# notepad++
 	function npp() {
 		opts=""
