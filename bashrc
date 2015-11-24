@@ -35,7 +35,7 @@ function __prompt_command() {
 	
 	# check for SSH shell
 	if [[ $(who am i) =~ \([-a-zA-Z0-9\.]+\)$ ]]; then
-		PS1+="\[\e]0;\u@\h:\w\a\]"		# set window title to user@host:working_dir
+		PS1+="\[\e]0;\h:\w\a\]"			# set window title to host:working_dir
 	else
 		PS1+="\[\e]0;\w\a\]"			# set window title to working_dir
 	fi
