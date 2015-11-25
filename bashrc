@@ -319,7 +319,8 @@ if [ -d /cygdrive ]; then
 fi
 
 # check for dotfile updates & reload this file
-if [[ ! -e ~/.dotfiles/.update_check || $(( $(date +%s) - $(date +%s -r .update_check) )) -gt 28800 ]]; then
+[ ! -e ~/.dotfiles/.update_check ] && touch -t 197001010000 ~/.dotfiles/.update_check
+if [[ $(( $(date +%s) - $(date +%s -r .update_check) )) -gt 28800 ]]; then
 	echo Updating dotfiles...
 	~/.dotfiles/update.sh
 	touch ~/.dotfiles/.update_check

@@ -7,7 +7,7 @@ function git_update() {
 }
 
 function wget_update() {
-	wget https://github.com/cheuer/dotfiles/archive/master.tar.gz
+	wget https://github.com/cheuer/dotfiles/archive/master.tar.gz 2>/dev/null
 	tar -xzf master.tar.gz
 	[[ ! -d $dotfiles_dir ]] && mkdir $dotfiles_dir
 	cp dotfiles-master/* $dotfiles_dir/
