@@ -320,7 +320,7 @@ fi
 
 # check for dotfile updates & reload this file
 [ ! -e ~/.dotfiles/.update_check ] && touch -t 197001010000 ~/.dotfiles/.update_check
-if [[ $(( $(date +%s) - $(date +%s -r .update_check) )) -gt 28800 ]]; then
+if [[ $(( $(date +%s) - $(date +%s -r ~/.dotfiles/.update_check) )) -gt 28800 ]]; then
 	echo Updating dotfiles...
 	~/.dotfiles/update.sh
 	touch ~/.dotfiles/.update_check
