@@ -60,6 +60,7 @@ set incsearch		" incremental search
 set hlsearch		" highlight search result
 set modeline		" allow files to use modelines
 set nostartofline	" don't jump to the beginning of the line when scrolling
+set backspace=2		" make backspace work like most other apps
 
 " use jj to escape when in insert mode
 inoremap jj <Esc>
@@ -73,3 +74,5 @@ map <silent> <PageDown> <C-D>
 imap <silent> <PageUp> <C-O><C-U>
 imap <silent> <PageDown> <C-O><C-D>
 
+" go to first line and enter insert mode automatically for commit messages
+au BufRead COMMIT_EDITMSG execute "normal! gg" | startinsert
