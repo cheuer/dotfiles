@@ -160,8 +160,8 @@ alias screen='screen -U' # always start screen in UTF-8 mode
 
 # git stuff
 alias ga='git add'
-alias gc='git commit'
-alias gca='git commit -a'
+alias gc='git commit -v'
+alias gca='git commit -av'
 alias gcm='git commit -m'
 alias gd='git diff'
 alias gds='git diff --staged'
