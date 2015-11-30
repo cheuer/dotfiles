@@ -14,10 +14,10 @@ function wget_update() {
 	rm -rf master.tar.gz dotfiles-master
 }
 
-if hash git 2>/dev/null; then
-	git_update
-else
+if ! hash git 2>/dev/null || [[ $(git --version | sed "s/git version //") < "1.9" ]]; then
 	wget_update
+else
+	git_update
 fi
 
 echo Dotfiles updated!
