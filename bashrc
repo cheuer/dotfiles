@@ -34,7 +34,7 @@ function __prompt_command() {
 	local Checkmark='\342\234\223'
 	
 	# check for SSH shell
-	if [[ $(who am i) =~ \([-a-zA-Z0-9\.]+\)$ ]]; then
+	if [[ $(who -l) =~ ^LOGIN ]]; then
 		PS1+="\[\e]0;\h:\w\a\]"			# set window title to host:working_dir
 	else
 		PS1+="\[\e]0;\w\a\]"			# set window title to working_dir
