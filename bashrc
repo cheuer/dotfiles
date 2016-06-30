@@ -141,9 +141,8 @@ alias du='du -h'
 
 # Some shortcuts for different directory listings
 alias ls='ls -hF --color=tty --ignore="NTUSER.*" --ignore="ntuser.*"'  # classify files in colour
-alias ll='ls -l'                              # long list
+alias ll='ls -lA'                              # long list
 alias la='ls -A'                              # all but . and ..
-alias lal='ls -Al'
 
 # custom aliases
 alias grep='grep -i --color=auto'
