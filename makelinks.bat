@@ -10,7 +10,6 @@ goto :end
 
 :run
 @echo on
-mklink %USERPROFILE%\.bash_history %USERPROFILE%\Dropbox\bin\bash\.bash_history
 mklink %USERPROFILE%\.bash_profile %USERPROFILE%\.dotfiles\bash_profile
 mklink %USERPROFILE%\.bashrc %USERPROFILE%\.dotfiles\bashrc
 mklink %USERPROFILE%\.gitconfig %USERPROFILE%\.dotfiles\gitconfig
