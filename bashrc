@@ -3,12 +3,19 @@
 # If not running interactively, don't do anything
 [[ "$-" != *i* ]] && return
 
+function __reload_history() {
+	builtin history -a		# write the previous history line to disk
+	HISTFILESIZE=$HISTSIZE	# prevent history number from changing
+	builtin history -c		# clear current history
+	builtin history -r		# reload history
+}
+
 # prompt command
 # inspired by https://notabug.org/demure/dotfiles/
 export PROMPT_COMMAND=__prompt_command
 function __prompt_command() {
 	local EXIT=$? 		# capture previous exit code first
-	history -a			# write the previous history line to disk
+	__reload_history
 	PS1=""
 	
 	### Colors to Vars ### {{{
@@ -123,7 +130,7 @@ export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 # HISTIGNORE is a colon-delimited list of patterns which should be excluded.
 # The '&' is a special pattern which suppresses duplicate entries.
 # export HISTIGNORE=$'[ \t]*:&:[fb]g:exit'
-export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:history' # Ignore the ls command as well
+export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:history:hist' # Ignore the ls command as well
 
 # Aliases
 #
@@ -156,6 +163,7 @@ alias ns='nslookup -nosearch -debug'
 alias scp='__ssh_agent && scp'
 alias ssh='__ssh_agent && ssh'
 alias screen='screen -U' # always start screen in UTF-8 mode
+alias hist='history 20'
 
 # git stuff
 alias ga='git add'
