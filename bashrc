@@ -174,7 +174,7 @@ alias gd='git diff'
 alias gds='git diff --staged'
 alias gf='git fetch'
 alias gh='git hist'
-alias gs='git status'
+alias gs='git status -uno'
 
 # conditional aliases
 hash colordiff 2>/dev/null && alias diff=colordiff # use colordiff instead of diff if it exists
@@ -185,17 +185,38 @@ export TMOUT=0
 [ -r ~/.ssh-agent ] && source ~/.ssh-agent >/dev/null
 
 # functions
-function count_folders() {
-	shopt -s nullglob
-	for dir in ./*/
-	do
-		printf '%s\n' "$dir"
-		find "$dir" -mindepth 1 -type d -printf x | wc --chars
-	done
+function __ssh_agent() {
+	# If no SSH agent is already running, start one now. Re-use sockets so we never
+	# have to start more than one session.
+
+	ssh-add -l >/dev/null 2>&1
+	result=$?
+	if [ $result = 2 ]; then
+		# read ssh-agent config from file and retry
+		[ -r ~/.ssh-agent ] && source ~/.ssh-agent >/dev/null
+		ssh-add -l >/dev/null 2>&1
+		result=$?
+		if [ $result = 2 ]; then
+			ssh-agent > ~/.ssh-agent
+			source ~/.ssh-agent >/dev/null
+			ssh-add
+		fi
+	fi
+	if [ $result = 1 ]; then
+		ssh-add
+	fi
 }
 
-function findedit() {
-	$EDITOR $(find -name $1)
+function color_explain() {
+	eval "$(dircolors -b)"
+	eval $(echo "no:global default;fi:normal file;di:directory;ln:symbolic link;pi:named pipe;so:socket;do:door;bd:block device;cd:character device;or:orphan symlink;mi:missing file;su:set uid;sg:set gid;tw:sticky other writable;ow:other writable;st:sticky;ex:executable;"|sed -e 's/:/="/g; s/\;/"\n/g')
+	{
+	  IFS=:
+	  for i in $LS_COLORS
+	  do
+		echo -e "\e[${i#*=}m$( x=${i%=*}; [ "${!x}" ] && echo "${!x}" || echo "$x" )\e[m"
+	  done
+	}
 }
 
 function colors() {
@@ -267,38 +288,17 @@ function colors() {
 EOF
 }
 
-function color_explain() {
-	eval "$(dircolors -b)"
-	eval $(echo "no:global default;fi:normal file;di:directory;ln:symbolic link;pi:named pipe;so:socket;do:door;bd:block device;cd:character device;or:orphan symlink;mi:missing file;su:set uid;sg:set gid;tw:sticky other writable;ow:other writable;st:sticky;ex:executable;"|sed -e 's/:/="/g; s/\;/"\n/g')
-	{
-	  IFS=:
-	  for i in $LS_COLORS
-	  do
-		echo -e "\e[${i#*=}m$( x=${i%=*}; [ "${!x}" ] && echo "${!x}" || echo "$x" )\e[m"
-	  done
-	}
+function count_folders() {
+	shopt -s nullglob
+	for dir in ./*/
+	do
+		printf '%s\n' "$dir"
+		find "$dir" -mindepth 1 -type d -printf x | wc --chars
+	done
 }
 
-function __ssh_agent() {
-	# If no SSH agent is already running, start one now. Re-use sockets so we never
-	# have to start more than one session.
-
-	ssh-add -l >/dev/null 2>&1
-	result=$?
-	if [ $result = 2 ]; then
-		# read ssh-agent config from file and retry
-		[ -r ~/.ssh-agent ] && source ~/.ssh-agent >/dev/null
-		ssh-add -l >/dev/null 2>&1
-		result=$?
-		if [ $result = 2 ]; then
-			ssh-agent > ~/.ssh-agent
-			source ~/.ssh-agent >/dev/null
-			ssh-add
-		fi
-	fi
-	if [ $result = 1 ]; then
-		ssh-add
-	fi
+function findedit() {
+	$EDITOR $(find -name $1)
 }
 
 # cygwin-only settings
