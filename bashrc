@@ -83,7 +83,8 @@ function __prompt_command() {
 		GIT_PS1_SHOWUNTRACKEDFILES=1 #designated with %
 		GIT_PS1_SHOWUPSTREAM="auto"
 		GIT_PS1_SHOWCOLORHINTS=true
-		PS1+="${RCol} \$(__git_ps1 '(%s)')"
+		local RESULT="$(__git_ps1 '(%s)')"
+		PS1+="${RCol} ${RESULT}"
 	fi
 
 	PS1+="\n"							# put prompt on next line
