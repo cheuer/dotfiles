@@ -3,17 +3,85 @@
 # If not running interactively, don't do anything
 [[ "$-" != *i* ]] && return
 
-function __reload_history() {
-	builtin history -a		# write the previous history line to disk
-	HISTFILESIZE=$HISTSIZE	# prevent history number from changing
-	builtin history -c		# clear current history
-	builtin history -r		# reload history
-}
+# Shell Options
+#
+# Use case-insensitive filename globbing
+shopt -s nocaseglob
+#
+# ignore some typos
+shopt -s cdspell
+#
+# Disable suspend
+stty -ixon
 
-# prompt command
-# inspired by https://notabug.org/demure/dotfiles/
+# Completion options
+#
+# case-insensitive completion
+bind "set completion-ignore-case on"
+#
+# show suggestions immediately
+bind "set show-all-if-ambiguous on"
+#
+# show all suggestions
+bind "set completion-query-items 0"
+
+# History Options
+#
+# Don't put duplicate lines in the history.
+export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
+#
+# Ignore some controlling instructions
+export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:history:hist'
+#
+# Make bash append rather than overwrite the history on disk
+shopt -s histappend
+
+# Aliases
+#
+# override defaults
+alias df='df -h'
+alias du='du -h'
+alias ls='ls -hFN --color=tty --ignore="NTUSER.*" --ignore="ntuser.*"'
+alias ll='ls -lA'
+alias la='ls -A'
+alias grep='grep -i --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias scp='__ssh_agent && scp'
+alias ssh='__ssh_agent && ssh'
+alias screen='screen -U' # always start screen in UTF-8 mode
+#
+# custom aliases
+alias tunnel='ssh -fNL'
+alias reload='source ~/.bashrc'
+alias cls='printf "\033c"'
+alias psh='ps -H'
+alias ns='nslookup -nosearch -debug'
+alias hist='history 20'
+#
+# git stuff
+alias ga='git add'
+alias gc='git commit -v'
+alias gca='git commit -av'
+alias gcm='git commit -m'
+alias gd='git diff'
+alias gds='git diff --staged'
+alias gf='git fetch'
+alias gh='git hist'
+alias gs='git status -uno'
+
+# conditional aliases
+hash colordiff 2>/dev/null && alias diff=colordiff # use colordiff instead of diff if it exists
+
+# other settings
+export EDITOR=/usr/bin/vim
 export PROMPT_COMMAND=__prompt_command
+export TMOUT=0
+[ -r ~/.ssh-agent ] && source ~/.ssh-agent >/dev/null
+
+# functions
 function __prompt_command() {
+	# inspired by https://notabug.org/demure/dotfiles/
 	local EXIT=$? 		# capture previous exit code first
 	__reload_history
 	PS1=""
@@ -92,100 +160,13 @@ function __prompt_command() {
 	PS1+="${RCol}\$ "
 }
 
-# Shell Options
-#
-# Use case-insensitive filename globbing
-shopt -s nocaseglob
-#
-# Make bash append rather than overwrite the history on disk
-shopt -s histappend
-#
-# When changing directory small typos can be ignored by bash
-# for example, cd /vr/lgo/apaache would find /var/log/apache
-shopt -s cdspell
-#
-# Disable suspend
-stty -ixon
+function __reload_history() {
+	builtin history -a		# write the previous history line to disk
+	HISTFILESIZE=$HISTSIZE	# prevent history number from changing
+	builtin history -c		# clear current history
+	builtin history -r		# reload history
+}
 
-# Completion options
-#
-# case-insensitive completion
-bind "set completion-ignore-case on"
-#
-# show suggestions immediately
-bind "set show-all-if-ambiguous on"
-#
-# show all suggestions
-bind "set completion-query-items 0"
-#
-# Uncomment to turn on programmable completion enhancements.
-# Any completions you add in ~/.bash_completion are sourced last.
-# [[ -f /etc/bash_completion ]] && . /etc/bash_completion
-
-# History Options
-#
-# Don't put duplicate lines in the history.
-export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
-#
-# Ignore some controlling instructions
-# HISTIGNORE is a colon-delimited list of patterns which should be excluded.
-# The '&' is a special pattern which suppresses duplicate entries.
-# export HISTIGNORE=$'[ \t]*:&:[fb]g:exit'
-export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:history:hist' # Ignore the ls command as well
-
-# Aliases
-#
-# Some people use a different file for aliases
-# if [ -f "${HOME}/.bash_aliases" ]; then
-#   source "${HOME}/.bash_aliases"
-# fi
-#
-# To override the alias instruction use a \ before, ie
-# \rm will call the real rm not the alias.
-
-# Default to human readable figures
-alias df='df -h'
-alias du='du -h'
-
-# Some shortcuts for different directory listings
-alias ls='ls -hF --color=tty --ignore="NTUSER.*" --ignore="ntuser.*"'  # classify files in colour
-alias ll='ls -lA'                              # long list
-alias la='ls -A'                              # all but . and ..
-
-# custom aliases
-alias grep='grep -i --color=auto'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias tunnel='ssh -fNL'
-alias reload='source ~/.bashrc'
-alias cls='printf "\033c"'
-alias psh='ps -H'
-alias ns='nslookup -nosearch -debug'
-alias scp='__ssh_agent && scp'
-alias ssh='__ssh_agent && ssh'
-alias screen='screen -U' # always start screen in UTF-8 mode
-alias hist='history 20'
-
-# git stuff
-alias ga='git add'
-alias gc='git commit -v'
-alias gca='git commit -av'
-alias gcm='git commit -m'
-alias gd='git diff'
-alias gds='git diff --staged'
-alias gf='git fetch'
-alias gh='git hist'
-alias gs='git status -uno'
-
-# conditional aliases
-hash colordiff 2>/dev/null && alias diff=colordiff # use colordiff instead of diff if it exists
-
-# other settings
-export EDITOR=/usr/bin/vim
-export TMOUT=0
-[ -r ~/.ssh-agent ] && source ~/.ssh-agent >/dev/null
-
-# functions
 function __ssh_agent() {
 	# If no SSH agent is already running, start one now. Re-use sockets so we never
 	# have to start more than one session.
@@ -303,7 +284,7 @@ function findedit() {
 }
 
 # cygwin-only settings
-if [ -d /cygdrive ]; then
+if [[ -d /cygdrive/ || -d /c/ ]]; then
 
 	if [ ! -x $EDITOR ]; then
 		export EDITOR="notepad++.exe -multiInst -nosession -notabbar"
