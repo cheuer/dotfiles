@@ -41,7 +41,7 @@ shopt -s histappend
 # override defaults
 alias df='df -h'
 alias du='du -h'
-alias ls='ls -hFN --color=tty --ignore="NTUSER.*" --ignore="ntuser.*"'
+alias ls='ls -hN --color=tty --ignore="NTUSER.*" --ignore="ntuser.*"'
 alias ll='ls -lA'
 alias la='ls -A'
 alias grep='grep -i --color=auto'
