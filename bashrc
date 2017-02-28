@@ -74,7 +74,7 @@ alias gs='git status -uno'
 hash colordiff 2>/dev/null && alias diff=colordiff # use colordiff instead of diff if it exists
 
 # other settings
-export EDITOR=/usr/bin/vim
+hash vim 2>/dev/null && export EDITOR=$(which vim)
 export PROMPT_COMMAND=__prompt_command
 export TMOUT=0
 [ -r ~/.ssh-agent ] && source ~/.ssh-agent >/dev/null
@@ -287,7 +287,7 @@ function findedit() {
 if [[ -d /cygdrive/ || -d /c/ ]]; then
 
 	if [ ! -x $EDITOR ]; then
-		export EDITOR="notepad++.exe -multiInst -nosession -notabbar"
+		export EDITOR="~/.dotfiles/npp.sh"
 	fi
 
 	# notepad++

@@ -20,3 +20,5 @@
 	pager = true
 [push]
 	default = simple
+[core]
+	fscache = true
