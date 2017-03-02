@@ -286,7 +286,7 @@ function findedit() {
 # cygwin-only settings
 if [[ -d /cygdrive/ || -d /c/ ]]; then
 
-	if [ ! -x $EDITOR ]; then
+	if [[ ! -x $EDITOR ]]; then
 		export EDITOR="~/.dotfiles/npp.sh"
 	fi
 
