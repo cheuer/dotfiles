@@ -179,7 +179,14 @@ function __ssh_agent() {
 		ssh-add -l >/dev/null 2>&1
 		result=$?
 		if [ $result = 2 ]; then
-			ssh-agent > ~/.ssh-agent
+			if hash pageant 2>/dev/null && [[ -x /usr/bin/ssh-pageant ]]; then
+				if [[ -z $(ps -W | grep pageant) ]]; then
+					cygstart pageant
+				fi
+				ssh-pageant > ~/.ssh-agent
+			else
+				ssh-agent > ~/.ssh-agent
+			fi
 			source ~/.ssh-agent >/dev/null
 			ssh-add
 		fi
