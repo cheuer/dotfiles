@@ -78,6 +78,7 @@ hash vim 2>/dev/null && export EDITOR=$(which vim)
 export PROMPT_COMMAND=__prompt_command
 export TMOUT=0
 [ -r ~/.ssh-agent ] && source ~/.ssh-agent >/dev/null
+[ -r ~/.dircolors ] && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 
 # functions
 function __prompt_command() {
