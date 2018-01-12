@@ -50,6 +50,7 @@ alias fgrep='fgrep --color=auto'
 alias scp='__ssh_agent && scp'
 alias ssh='__ssh_agent && ssh'
 alias screen='screen -U' # always start screen in UTF-8 mode
+alias sudo='sudo ' # expands other aliases when using sudo
 #
 # custom aliases
 alias tunnel='ssh -fNL'
