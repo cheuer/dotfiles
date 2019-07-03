@@ -76,10 +76,16 @@ hash colordiff 2>/dev/null && alias diff=colordiff # use colordiff instead of di
 
 # other settings
 hash vim 2>/dev/null && export EDITOR=$(which vim)
-export PROMPT_COMMAND=__prompt_command
 export TMOUT=0
 [ -r ~/.ssh-agent ] && source ~/.ssh-agent >/dev/null
 [ -r ~/.dircolors ] && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+
+# use PROMPT_COMMAND unless it's readonly
+if [[ -n $(readonly | grep PROMPT_COMMAND) ]]; then
+    PS1="\[\e]0;\h:\w\a\]\[\e[0;32m\]\u@\h \[\e[0;33m\]\w\n\[\e[0m\]\$ "
+else
+    export PROMPT_COMMAND=__prompt_command
+fi
 
 # functions
 function __prompt_command() {
