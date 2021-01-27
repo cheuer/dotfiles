@@ -156,7 +156,7 @@ function __prompt_command() {
 	if type __git_ps1 > /dev/null 2>&1 ;
 	then
 		GIT_PS1_SHOWDIRTYSTATE=1
-		GIT_PS1_SHOWUNTRACKEDFILES=1 #designated with %
+		# GIT_PS1_SHOWUNTRACKEDFILES=1 #designated with %
 		GIT_PS1_SHOWUPSTREAM="auto"
 		GIT_PS1_SHOWCOLORHINTS=true
 		local RESULT="$(__git_ps1 '(%s)')"
