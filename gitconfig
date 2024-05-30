@@ -22,4 +22,3 @@
 	default = simple
 [core]
 	fscache = true
-[commit]
