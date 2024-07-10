@@ -60,14 +60,6 @@
           "template": " {{ .Path }} "
         },
         {
-          "type": "root",
-          "background": "p:orange-red",
-          "foreground": "p:light-gray",
-          "powerline_symbol": "\ue0b0",
-          "style": "powerline",
-          "template": " \uf09c admin "
-        },
-        {
           "type": "aws",
           "style": "powerline",
           "powerline_symbol": "\ue0b0",
