@@ -1,0 +1,205 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "console_title_template": "{{if matchP \"windows\" .OS}}{{else}}{{.HostName}}:{{end}}{{.PWD}}",
+  "patch_pwsh_bleed": true,
+  "pwd": "osc99",
+  "final_space": true,
+  "version": 2,
+  "palette": {
+    "black": "#011627",
+    "blue-purple": "#4063d8",
+    "blue": "#0037da",
+    "dark-blue": "#0b59e7",
+    "dark-gray": "#575656",
+    "git-ahead": "#b787d7",
+    "git-ahead-behind": "#b787d7",
+    "git-behind": "#b787d7",
+    "git-changed": "#16b1ac",
+    "git-default": "#16b1ac",
+    "green": "#6ca35e",
+    "light-blue": "#48c1fd",
+    "light-gray": "#d6deeb",
+    "light-green": "#4fe488",
+    "orange-red": "#ef541c",
+    "orange": "#ffa400",
+    "purple": "#2e2a65",
+    "python-blue": "#0087d8",
+    "red": "#e44141",
+    "white": "#ffffff",
+    "yellow": "#ffde57"
+  },
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "session",
+          "background": "p:light-blue",
+          "background_templates": [
+            "{{ if .Root }}p:red{{ end }}"
+          ],
+          "foreground": "p:black",
+          "foreground_templates": [
+            "{{ if .Root }}p:light-gray{{ end }}"
+          ],
+          "leading_diamond": "\ue0b2",
+          "style": "powerline",
+          "template": " {{.UserName}}@{{.HostName}} "
+        },
+        {
+          "type": "path",
+          "background": "p:yellow",
+          "foreground": "p:black",
+          "powerline_symbol": "\ue0b0",
+          "properties": {
+            "style": "agnoster_short",
+            "max_depth": 3
+          },
+          "style": "powerline",
+          "template": " {{ .Path }} "
+        },
+        {
+          "type": "root",
+          "background": "p:orange-red",
+          "foreground": "p:light-gray",
+          "powerline_symbol": "\ue0b0",
+          "style": "powerline",
+          "template": " \uf09c admin "
+        },
+        {
+          "type": "aws",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "foreground": "p:white",
+          "background": "p:orange",
+          "template": " \uf0ef {{.Profile}}{{if .Region}}@{{.Region}}{{end}}"
+        },
+        // {
+        //   "type": "docker",
+        //   "style": "powerline",
+        //   "powerline_symbol": "\ue0b0",
+        //   "foreground": "p:black",
+        //   "background": "p:dark-blue",
+        //   "template": " \uf21f {{ .Context }} "
+        // },
+        {
+          "type": "lua",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "foreground": "p:white",
+          "background": "p:blue",
+          "template": " \ue620 {{ .Full }} "
+        },
+        {
+          "type": "node",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "foreground": "p:white",
+          "background": "p:green",
+          "template": " \ued0d {{ .Full }} "
+        },
+        {
+          "type": "php",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "foreground": "p:white",
+          "background": "p:blue-purple",
+          "template": " \ue73d {{ .Full }} "
+        },
+        {
+          "type": "python",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "properties": {
+            "display_mode": "context"
+          },
+          "background": "p:python-blue",
+          "foreground": "p:black",
+          "template": " \ue73c {{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }} "
+        },
+        {
+          "type": "yarn",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "foreground": "p:white",
+          "background": "p:purple",
+          "template": " \uDB80\uDD1B {{ .Full }} "
+        },
+        {
+          "type": "git",
+          "background": "p:git-default",
+          "background_templates": [
+            "{{ if or (.Working.Changed) (.Staging.Changed) }}p:git-changed{{ end }}",
+            "{{ if and (gt .Ahead 0) (gt .Behind 0) }}p:git-ahead-behind{{ end }}",
+            "{{ if gt .Ahead 0 }}p:git-ahead{{ end }}",
+            "{{ if gt .Behind 0 }}p:git-behind{{ end }}"
+          ],
+          "foreground": "p:black",
+          "powerline_symbol": "\ue0b0",
+          "properties": {
+            "branch_icon": "\ue725 ",
+            "branch_max_length": 40,
+            "fetch_stash_count": true,
+            "fetch_status": true,
+            "fetch_upstream_icon": true,
+            "fetch_worktree_count": true
+          },
+          "style": "powerline",
+          "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \ueb4b {{ .StashCount }}{{ end }} "
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "right",
+      "segments": [
+        {
+          "background": "p:light-green",
+          "background_templates": [
+            "{{ if gt .Code 0 }}p:red{{ end }}"
+          ],
+          "foreground": "p:black",
+          "foreground_templates": [
+            "{{ if gt .Code 0 }}p:light-gray{{ end }}"
+          ],
+          "leading_diamond": "\ue0b6",
+          "properties": {
+            "always_enabled": true
+          },
+          "style": "diamond",
+          "template": "{{ if gt .Code 0 }}\uf00d {{ .Code }} {{ reason .Code }}{{ else }}\uf00c{{ end }} ",
+          "type": "status"
+        },
+        {
+          "background": "p:dark-gray",
+          "foreground": "p:light-gray",
+          "properties": {
+            "style": "roundrock",
+            "threshold": 0
+          },
+          "style": "diamond",
+          "template": " \uf252 {{ .FormattedMs }}",
+          "trailing_diamond": "\ue0b4",
+          "type": "executiontime"
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "foreground": "p:light-gray",
+          "properties": {
+            "always_enabled": true
+          },
+          "style": "plain",
+          "template": "{{if .Root}}#{{else}}>{{end}}",
+          "type": "status"
+        }
+      ]
+    }
+  ]
+}
