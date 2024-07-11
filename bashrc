@@ -80,8 +80,10 @@ export TMOUT=0
 [ -r ~/.ssh-agent ] && source ~/.ssh-agent >/dev/null
 [ -r ~/.dircolors ] && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 
-# use PROMPT_COMMAND unless it's readonly
-if [[ -n $(readonly | grep PROMPT_COMMAND) ]]; then
+# use oh-my-posh, fallback to prompt_command
+if command -v oh-my-posh &> /dev/null; then
+	eval "$(oh-my-posh init bash --config ~/.dotfiles/ohmyposhv3.json)"
+elif [[ -n $(readonly | grep PROMPT_COMMAND) ]]; then
     PS1="\[\e]0;\h:\w\a\]\[\e[0;32m\]\u@\h \[\e[0;33m\]\w\n\[\e[0m\]\$ "
 else
     export PROMPT_COMMAND=__prompt_command
