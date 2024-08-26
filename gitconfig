@@ -6,7 +6,7 @@
 	ci = commit
 	st = status
 	br = branch
-	hist = log --pretty=format:\"%C(auto)%h %<(20)%ad | %s%d [%an]\" --graph --date=relative
+	hist = log --pretty=format:\"%C(auto)%>|(20)%h %ad | %s%d %Cblue[%an]\" --graph --date=relative
 	type = cat-file -t
 	dump = cat-file -p
 	unstage = reset HEAD .
