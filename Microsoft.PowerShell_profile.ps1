@@ -26,6 +26,10 @@ function retest{
 	poetry run pytest --reuse-db --functional --unit --integration --cov --cov-report=xml --disable-warnings --last-failed $args
 }
 
+function apply{
+	[regex]::Replace((Get-Clipboard -Raw), "`r`n", "`n", "Singleline") | git apply --ignore-whitespace
+}
+
 oh-my-posh init pwsh --config ~/.dotfiles/ohmyposhv3.json | Invoke-Expression
 
 # disable venv prompt
@@ -77,4 +81,13 @@ Set-PSReadLineKeyHandler -Chord Shift+Delete -Description "Search through the hi
     }
 
     [Microsoft.PowerShell.PSConsoleReadLine]::DeleteLine()
+}
+
+# Define keyboard shortcut Alt-V to paste the current clipboard
+# content as a verbatim here-string.
+Set-PSReadLineKeyHandler 'alt+v' -ScriptBlock {
+  [Microsoft.PowerShell.PSConsoleReadLine]::Insert("@'`n`n'@")
+  foreach ($i in 1..3) { [Microsoft.PowerShell.PSConsoleReadLine]::BackwardChar() }
+  [Microsoft.PowerShell.PSConsoleReadLine]::Insert((Get-Clipboard -Raw))
+  foreach ($i in 1..3) { [Microsoft.PowerShell.PSConsoleReadLine]::ForwardChar() }
 }
