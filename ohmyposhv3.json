@@ -1,5 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "auto_upgrade": true,
   "console_title_template": "{{if matchP \"windows\" .OS}}{{else}}{{.HostName}}:{{end}}{{.PWD}}",
   "patch_pwsh_bleed": true,
   "pwd": "osc99",
