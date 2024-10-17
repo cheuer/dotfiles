@@ -81,6 +81,7 @@ export TMOUT=0
 [ -r ~/.dircolors ] && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 
 # use oh-my-posh, fallback to prompt_command
+[ -d ~/.local ] && export PATH=$PATH:~/.local/bin
 if command -v oh-my-posh &> /dev/null; then
 	eval "$(oh-my-posh init bash --config ~/.dotfiles/ohmyposhv3.json)"
 elif [[ -n $(readonly | grep PROMPT_COMMAND) ]]; then
