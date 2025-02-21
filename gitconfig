@@ -20,5 +20,6 @@
 	pager = true
 [push]
 	default = simple
+	autoSetupRemote = true
 [core]
 	fscache = true
