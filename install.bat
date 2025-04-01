@@ -3,7 +3,7 @@
 :: check for admin rights and try to elevate
 whoami /groups | findstr /b BUILTIN\Administrators | findstr /c:"Enabled group" > NUL && goto :run
 echo Running command as Administrator...
-elevate "makelinks.bat" && goto :end
+sudo "makelinks.bat" && goto :end
 echo Failed to elevate. Try running this script as Administrator.
 pause
 goto :end
@@ -16,6 +16,8 @@ copy /-Y %USERPROFILE%\.dotfiles\gitconfig_base %USERPROFILE%\.gitconfig
 mklink %USERPROFILE%\.vimrc %USERPROFILE%\.dotfiles\vimrc
 mkdir %USERPROFILE%\Documents\Powershell
 mklink %USERPROFILE%\Documents\Powershell\Microsoft.PowerShell_profile.ps1 %USERPROFILE%\.dotfiles\Microsoft.PowerShell_profile.ps1
+winget install JanDeDobbeleer.OhMyPosh -s winget
+oh-my-posh font install CommitMono
 @echo off
 pause
 
