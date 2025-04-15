@@ -73,12 +73,15 @@ alias gs='git status -uno'
 
 # conditional aliases
 hash colordiff 2>/dev/null && alias diff=colordiff # use colordiff instead of diff if it exists
+[ -f ~/.bash_aliases ] && source ~/.bash_aliases # load custom aliases if they exist
 
 # other settings
 hash vim 2>/dev/null && export EDITOR=$(which vim)
 export TMOUT=0
 [ -r ~/.ssh-agent ] && source ~/.ssh-agent >/dev/null
 [ -r ~/.dircolors ] && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+[ -f ~/.git-completion.bash ] && source ~/.git-completion.bash # source git-completion if it exists
+[ -f /etc/bash_completion ] && source /etc/bash_completion # source bash_completion if it exists
 
 # use oh-my-posh, fallback to prompt_command
 [ -d ~/.local ] && export PATH=$PATH:~/.local/bin

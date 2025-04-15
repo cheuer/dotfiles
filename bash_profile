@@ -19,13 +19,3 @@ fi
 # if [ -d "${HOME}/info" ]; then
 #   INFOPATH="${HOME}/info:${INFOPATH}"
 # fi
-
-# source git-completion if it exists
-if [ -f ~/.git-completion.bash ]; then
-  . ~/.git-completion.bash
-fi
-
-# source bash_completion if it exists
-if [ -f /etc/bash_completion ]; then
-  . /etc/bash_completion
-fi
