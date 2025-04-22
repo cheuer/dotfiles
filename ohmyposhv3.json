@@ -106,6 +106,13 @@
           "style": "powerline"
         },
         {
+          "type": "react",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "background": "#81a1c1",
+          "template": " \ue7ba {{ .Full }} "
+        },
+        {
           "properties": {
             "cache_duration": "none"
           },
