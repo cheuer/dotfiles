@@ -17,20 +17,6 @@ function gf {git.exe fetch $args}
 function gg {git.exe hist $args}
 function gs {git.exe status $args}
 
-function manage{
-	poetry run python manage.py $args
-}
-function testall{
-	poetry run pytest --create-db --functional --unit --integration --disable-warnings $args && poetry run pytest --reuse-db --functional --unit --integration --cov --cov-report=xml --disable-warnings $args
-}
-function retest{
-	poetry run pytest --reuse-db --functional --unit --integration --cov --cov-report=xml --disable-warnings --last-failed $args
-}
-
-function token{
-	C:\Users\chris\git\jf2\.venv\Scripts\python C:\Users\chris\git\jf2\scripts\database-token.py chris | clip
-}
-
 function apply{
 	[regex]::Replace((Get-Clipboard -Raw), "`r`n", "`n", "Singleline") | git apply --ignore-whitespace && echo "Patch from clipboard applied"
 }
