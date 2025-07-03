@@ -27,11 +27,15 @@ bind "set completion-query-items 0"
 
 # History Options
 #
+# Unlimited history
+HISTSIZE=-1
+HISTFILEZIE=-1
+#
 # Don't put duplicate lines in the history.
 export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 #
 # Ignore some controlling instructions
-export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:history:hist'
+export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:history:hist:??:???'
 #
 # Make bash append rather than overwrite the history on disk
 shopt -s histappend
