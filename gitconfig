@@ -11,6 +11,7 @@
 	dump = cat-file -p
 	unstage = reset HEAD .
 	chmod = update-index --chmod
+    delete-merged = "!f() { git branch --merged | grep -v '\\*\\|master\\|main' | xargs -n 1 git branch -d; }; f"
 [color]
 	diff = auto
 	status = auto
