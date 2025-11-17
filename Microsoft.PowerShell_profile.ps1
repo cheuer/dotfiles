@@ -5,6 +5,7 @@ Set-PSReadLineKeyHandler -Key Alt+f -Function ShellForwardWord
 Set-PSReadLineKeyHandler -Key Alt+B -Function SelectShellBackwardWord
 Set-PSReadLineKeyHandler -Key Alt+F -Function SelectShellForwardWord
 Set-PSReadLineKeyHandler -Key Ctrl+k -Function ForwardDeleteInput
+Set-PSReadlineKeyHandler -Key Ctrl+d -Function DeleteCharOrExit
 
 set-alias npp "C:\Program Files\Notepad++\notepad++.exe"
 set-alias grep rg
@@ -23,7 +24,7 @@ function apply{
 
 function cloudwatch-logs{
 	$app, $rest = $args
-	aws logs tail "/ecs/$app" --follow --color on $rest
+	aws logs tail "$app" --follow --color on $rest
 }
 
 oh-my-posh init pwsh --config ~/.dotfiles/ohmyposhv3.json | Invoke-Expression
