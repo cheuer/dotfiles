@@ -13,6 +13,7 @@
 	chmod = update-index --chmod
     delete-merged = "!f() { git branch --merged | grep -v '\\*\\|master\\|main' | xargs -n 1 git branch -d; }; f"
 	alias = "! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /"
+	filetypes = "! git ls-files | sed -n 's/.*\\.\\([^.\\/]*\\)$/\\1/p' | sort | uniq -c | sort -rn"
 [color]
 	diff = auto
 	status = auto
