@@ -1,29 +1,29 @@
 [user]
-	name = Chris Heuer
-	email = cheuer@gmail.com
+    name = Chris Heuer
+    email = cheuer@gmail.com
 [alias]
-	co = checkout
-	ci = commit
-	st = status
-	br = branch
+    co = checkout
+    ci = commit
+    st = status
+    br = branch
     ri = rebase -i --autosquash
-	hist = log --pretty=format:\"%C(auto)%>|(20)%h %ad | %s%d %Cblue[%an]\" --graph --date=relative
-	type = cat-file -t
-	dump = cat-file -p
-	unstage = reset HEAD .
-	chmod = update-index --chmod
+    hist = log --pretty=format:\"%C(auto)%>|(20)%h %ad | %s%d %Cblue[%an]\" --graph --date=relative
+    type = cat-file -t
+    dump = cat-file -p
+    unstage = reset HEAD .
+    chmod = update-index --chmod
     delete-merged = "!f() { git branch --merged | grep -v '\\*\\|master\\|main' | xargs -n 1 git branch -d; }; f"
-	alias = "! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /"
-	filetypes = "! git ls-files | sed -n 's/.*\\.\\([^.\\/]*\\)$/\\1/p' | sort | uniq -c | sort -rn"
+    alias = "! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /"
+    filetypes = "! git ls-files | sed -n 's/.*\\.\\([^.\\/]*\\)$/\\1/p' | sort | uniq -c | sort -rn"
 [color]
-	diff = auto
-	status = auto
-	branch = auto
-	interactive = auto
-	ui = auto
-	pager = true
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
+    ui = auto
+    pager = true
 [push]
-	default = simple
-	autoSetupRemote = true
+    default = simple
+    autoSetupRemote = true
 [core]
-	fscache = true
+    fscache = true
