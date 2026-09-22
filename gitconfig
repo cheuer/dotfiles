@@ -6,6 +6,7 @@
 	ci = commit
 	st = status
 	br = branch
+    ri = rebase -i --autosquash
 	hist = log --pretty=format:\"%C(auto)%>|(20)%h %ad | %s%d %Cblue[%an]\" --graph --date=relative
 	type = cat-file -t
 	dump = cat-file -p
